@@ -6,22 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Le styles -->
+
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <link rel="stylesheet" href="rsb.css">
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <style>
-            div {
-                margin-bottom: 5px;
-            }
-            .winning {
-                color:red;
-                font-weight: bold;
-            }
-        </style>
 </head>
 <body>
     <div class="container">
@@ -84,24 +75,24 @@
                     </div>
                 </div>
                 <div class="row" id="action" >
-                    <div class="col-sm-8 col-sm-offset-1">
-                        <div class="row">
-                            <div class="col-sm-12 col-sm-offset-0" style="text-align:center;">
+                    <div class="col-sm-12" style="text-align:center;">
                                 <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="options" id="rock">Rock</label>
                                     <label class="btn btn-primary">
                                         <input type="radio" name="options" id="paper">Paper</label>
                                     <label class="btn btn-primary">
                                         <input type="radio" name="options" id="scissors">Scissors</label>
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="options" id="rock">Rock</label>
+                                    <label class="btn btn-primary" disabled="disabled">
+                                        <input type="radio" name="options" id="lizard">Lizard</label>
+                                    <label class="btn btn-primary" disabled="disabled">
+                                        <input type="radio" name="options" id="spock">Spock</label>
                                 </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-lg btn-success btn-block" id="shake">Ro-Sham-Bo!</button>
+                        <button class="btn btn-lg btn-success col-sm-8 col-sm-offset-2" id="shake">Ro-Sham-Bo!</button>
                     </div>
                 </div>
                 <div id="result" class="row">
-                    <div class="col-sm-8 col-sm-offset-1">
+                    <div class="col-sm-8 col-sm-offset-2">
                         <div class="alert" style="text-align:center;">
                             <h2></h2>
                         </div>
@@ -123,150 +114,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script>
-        $(document).ready(function(){
+<script src="rsb.js"></script>
 
-          $('#action, #score, #moves, #reset, #winScore, #result, .alert').hide();
-          $('.alert > .close').click(function(){
-            $(this).parent().hide('fast');
-          });
-          var pScore = 0;
-          var cScore = 0;
-          $('#pScore, #cScore').html('0');
-
-          var winScore = null;
-          $("#btn1").click(function(){
-            winScore = $('#winScoreInput').val();
-            if ( winScore === undefined || parseInt(winScore) === NaN || winScore === "" || winScore < 1) {
-                $('#invalid-alert').append('Your input was not a valid number. Try again.').show('fast');
-                return false;
-            };
-            $('#invalid-alert').hide('fast');
-            winScore = parseInt(winScore);
-            $('#winScore, #score, #winScore .alert').show();
-            $('#winScore span').html(winScore);
-            $(this).hide();
-            $('#winputCont').hide();
-            $('#action').show();
-            $('#reset').show();
-            return winScore;
-          });
-
-          $("#reset").click(function(){
-            $('#moves, #score, #action, #winScore, #result').hide();
-            $(this).hide();
-            $('#moves > ol').html('');
-            $('#pScore, #cScore').html('0');
-            $('#btn1, #winputCont').show();
-            pScore = 0;
-            cScore = 0;
-            $('#cScore, #pScore').removeClass('winning');
-            $('#shake').removeAttr('disabled');
-          });
-
-          $("#shake").click(function(){
-
-            var userChoice = "";
-            userChoice = $('.btn-group > label.active > input').attr('id');
-            if ( userChoice === undefined ) {
-                $('#invalid-alert').append("You didn't pick an option. Try again.").show('fast');
-                return false;
-            };
-            $('#invalid-alert').hide('fast');
-
-
-            var computerChoice = Math.random();
-            if (computerChoice < 0.34) {
-                computerChoice = "rock";
-            } else if(computerChoice <= 0.67) {
-                computerChoice = "paper";
-            } else {
-                computerChoice = "scissors";
-            };
-
-            var compSign = "";
-
-            var winner = function (choice) {
-                $('#result h2').html("You win!").parent().removeClass('alert-warning').removeClass('alert-danger').addClass('alert-success');
-                compSign = "beats";
-                pScore = pScore + 1;
-            };
-
-            var loser = function (choice) {
-                $('#result h2').html("You lose.").parent().removeClass('alert-warning').addClass('alert-danger').removeClass('alert-success');
-                compSign = "loses to";
-                cScore = cScore + 1;
-            };
-
-
-            var compare = function (choice1,choice2) {
-                if ( choice1 === choice2 ) {
-                    $('#result h2').html("It's a tie.").parent().addClass('alert-warning').removeClass('alert-danger').removeClass('alert-success');
-                    compSign = "ties with";
-                } else if ( choice1 === "rock" ) {
-                    if ( choice2 === "scissors" ) {
-                        winner(choice1);
-                    } else {
-                        loser(choice2);
-                    }
-                } else if ( choice1 === "paper" ) {
-                    if ( choice2 === "rock" ) {
-                        winner(choice1);
-                    } else {
-                        loser(choice2);
-                    }
-                } else if ( choice1 === "scissors" ) {
-                    if ( choice2 === "rock" ) {
-                        loser(choice2);
-                    } else {
-                        winner(choice1);
-                    }
-                }
-            };
-
-            compare(userChoice,computerChoice);
-
-            $('#moves, #result, #result .alert').show('fast');
-
-
-            $("#moves > ol").append("<li><b>You:</b>" + " " + userChoice + " <i>" + compSign + "</i> <b>Computer:</b> " + computerChoice + ".</li>");
-            $("#pScore").html(pScore);
-            $("#cScore").html(cScore);
-
-            if ( pScore > cScore ) {
-                $('#pScore').addClass('winning');
-                $('#cScore').removeClass('winning');
-            } else if ( cScore > pScore ) {
-                $('#cScore').addClass('winning');
-                $('#pScore').removeClass('winning');
-            } else {
-                $('#cScore, #pScore').removeClass('winning');
-            };
-
-            var pAgain = "";
-            var checkConf = function(){
-                if ( pAgain === true ) {
-                    $('#reset').click();
-                } else {
-                    $('#shake').attr('disabled','disabled');
-                };
-            };
-            if ( winScore === pScore ) {
-                pAgain = confirm("You win the match! Play again?");
-                checkConf();
-            } else if ( winScore === cScore ) {
-                pAgain = confirm("You lost the match. Sorry. Play again?");
-                checkConf();
-            };    
-            
-
-
-            $('.btn-group > label').removeClass('active');
-          });
-
-
-
-        });
-        </script>
 </body>
 </html>
