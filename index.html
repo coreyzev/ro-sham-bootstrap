@@ -1,52 +1,272 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Ro-Sham-Bo(otstrap)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Ro-sham-bootstrap : Built an easy Ro Sham Bo, Rock Paper Scissors, game using JavaScript." />
+    <style>
+            div {
+                margin-bottom: 5px;
+            }
+            .winning {
+                color:red;
+                font-weight: bold;
+            }
+        </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-header">
+                    <h1>Ro-Sham-Bo(otstrap)</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="play"  class="col-sm-6">
+                <div id="invalid-alert" class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" aria-hidden="true">&times;</button> <strong>Warning!</strong>
+                </div>
+                <div id="winputCont">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+                    <div class="row">
+                        <form role="form" class="col-sm-6">
+                            <div class="form-group">
+                                <label for="winScore">Play til how many points?</label>
+                                <input type="number" min="1" name="winScore" val="" class="form-control" id="winScoreInput" ></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-lg" id="btn1">Let's Play.</button>
+                        <button class="btn btn-lg" id="reset">Reset</button>
+                    </div>
+                </div>
+                <div id="winScore" class="row" >
+                    <div class="col-sm-12">
+                        <div class="alert alert-info">
+                            Playing til
+                            <span></span>
+                            points.
+                        </div>
+                    </div>
+                </div>
 
-    <title>Ro-sham-bootstrap</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/coreyzev/ro-sham-bootstrap">View on GitHub</a>
-
-          <h1 id="project_title">Ro-sham-bootstrap</h1>
-          <h2 id="project_tagline">Built an easy Ro Sham Bo, Rock Paper Scissors, game using JavaScript.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/coreyzev/ro-sham-bootstrap/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/coreyzev/ro-sham-bootstrap/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+                <div class="row" id="score">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>Player</th>
+                                    <th>Computer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Score</td>
+                                    <td id="pScore"></td>
+                                    <td id="cScore"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" id="action" >
+                    <div class="col-sm-8 col-sm-offset-1">
+                        <div class="row">
+                            <div class="col-sm-12 col-sm-offset-0" style="text-align:center;">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="options" id="rock">Rock</label>
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="options" id="paper">Paper</label>
+                                    <label class="btn btn-primary">
+                                        <input type="radio" name="options" id="scissors">Scissors</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-lg btn-success btn-block" id="shake">Ro-Sham-Bo!</button>
+                    </div>
+                </div>
+                <div id="result" class="row">
+                    <div class="col-sm-8 col-sm-offset-1">
+                        <div class="alert" style="text-align:center;">
+                            <h2></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6" id="moves" >
+                <h3>Play history:</h3>
+                <ol></ol>
+            </div>
+        </div>
     </div>
+</div>
+</div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
-<a name="ro-sham-bootstrap" class="anchor" href="#ro-sham-bootstrap"><span class="octicon octicon-link"></span></a>ro-sham-bootstrap</h1>
+<!-- /container -->
+<!-- Le javascript
+        ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script>
+        $(document).ready(function(){
 
-<p>Built an easy Ro Sham Bo, Rock Paper Scissors, game using JavaScript, JQuery, &amp; Twitter Bootstrap. Show's your history of moves for each match. Keeps track of score for each match as well.</p>
-      </section>
-    </div>
+          $('#action, #score, #moves, #reset, #winScore, #result, .alert').hide();
+          $('.alert > .close').click(function(){
+            $(this).parent().hide('fast');
+          });
+          var pScore = 0;
+          var cScore = 0;
+          $('#pScore, #cScore').html('0');
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Ro-sham-bootstrap maintained by <a href="https://github.com/coreyzev">coreyzev</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+          var winScore = null;
+          $("#btn1").click(function(){
+            winScore = $('#winScoreInput').val();
+            if ( winScore === undefined || parseInt(winScore) === NaN || winScore === "" || winScore < 1) {
+                $('#invalid-alert').append('Your input was not a valid number. Try again.').show('fast');
+                return false;
+            };
+            $('#invalid-alert').hide('fast');
+            winScore = parseInt(winScore);
+            $('#winScore, #score, #winScore .alert').show();
+            $('#winScore span').html(winScore);
+            $(this).hide();
+            $('#winputCont').hide();
+            $('#action').show();
+            $('#reset').show();
+            return winScore;
+          });
 
-    
+          $("#reset").click(function(){
+            $('#moves, #score, #action, #winScore, #result').hide();
+            $(this).hide();
+            $('#moves > ol').html('');
+            $('#pScore, #cScore').html('0');
+            $('#btn1, #winputCont').show();
+            pScore = 0;
+            cScore = 0;
+            $('#cScore, #pScore').removeClass('winning');
+            $('#shake').removeAttr('disabled');
+          });
 
-  </body>
+          $("#shake").click(function(){
+
+            var userChoice = "";
+            userChoice = $('.btn-group > label.active > input').attr('id');
+            if ( userChoice === undefined ) {
+                $('#invalid-alert').append("You didn't pick an option. Try again.").show('fast');
+                return false;
+            };
+            $('#invalid-alert').hide('fast');
+
+
+            var computerChoice = Math.random();
+            if (computerChoice < 0.34) {
+                computerChoice = "rock";
+            } else if(computerChoice <= 0.67) {
+                computerChoice = "paper";
+            } else {
+                computerChoice = "scissors";
+            };
+
+            var compSign = "";
+
+            var winner = function (choice) {
+                $('#result h2').html("You win!").parent().removeClass('alert-warning').removeClass('alert-danger').addClass('alert-success');
+                compSign = "beats";
+                pScore = pScore + 1;
+            };
+
+            var loser = function (choice) {
+                $('#result h2').html("You lose.").parent().removeClass('alert-warning').addClass('alert-danger').removeClass('alert-success');
+                compSign = "loses to";
+                cScore = cScore + 1;
+            };
+
+
+            var compare = function (choice1,choice2) {
+                if ( choice1 === choice2 ) {
+                    $('#result h2').html("It's a tie.").parent().addClass('alert-warning').removeClass('alert-danger').removeClass('alert-success');
+                    compSign = "ties with";
+                } else if ( choice1 === "rock" ) {
+                    if ( choice2 === "scissors" ) {
+                        winner(choice1);
+                    } else {
+                        loser(choice2);
+                    }
+                } else if ( choice1 === "paper" ) {
+                    if ( choice2 === "rock" ) {
+                        winner(choice1);
+                    } else {
+                        loser(choice2);
+                    }
+                } else if ( choice1 === "scissors" ) {
+                    if ( choice2 === "rock" ) {
+                        loser(choice2);
+                    } else {
+                        winner(choice1);
+                    }
+                }
+            };
+
+            compare(userChoice,computerChoice);
+
+            $('#moves, #result, #result .alert').show('fast');
+
+
+            $("#moves > ol").append("<li><b>You:</b>" + " " + userChoice + " <i>" + compSign + "</i> <b>Computer:</b> " + computerChoice + ".</li>");
+            $("#pScore").html(pScore);
+            $("#cScore").html(cScore);
+
+            if ( pScore > cScore ) {
+                $('#pScore').addClass('winning');
+                $('#cScore').removeClass('winning');
+            } else if ( cScore > pScore ) {
+                $('#cScore').addClass('winning');
+                $('#pScore').removeClass('winning');
+            } else {
+                $('#cScore, #pScore').removeClass('winning');
+            };
+
+            var pAgain = "";
+            var checkConf = function(){
+                if ( pAgain === true ) {
+                    $('#reset').click();
+                } else {
+                    $('#shake').attr('disabled','disabled');
+                };
+            };
+            if ( winScore === pScore ) {
+                pAgain = confirm("You win the match! Play again?");
+                checkConf();
+            } else if ( winScore === cScore ) {
+                pAgain = confirm("You lost the match. Sorry. Play again?");
+                checkConf();
+            };    
+            
+
+
+            $('.btn-group > label').removeClass('active');
+          });
+
+
+
+        });
+        </script>
+</body>
 </html>
