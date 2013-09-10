@@ -3,13 +3,19 @@ ro-sham-bootstrap
 
 Built an easy Ro Sham Bo, Rock Paper Scissors, game using JavaScript.
 
-Features:
+### Features:
 
 * Show's  history of moves for each match. 
 * Keeps track of score for each match.
 * Button based choices.
 
-Dependencies:
+### Roadmap:
+
+* Lizard & Spock
+* change logic to call JSON for win decisions
+* keystroke shortcuts
+
+### Dependencies:
 
 * JQuery
 * Twitter Bootstrap
