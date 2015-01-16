@@ -49,13 +49,24 @@ $(document).ready(function() {
         $('#invalid-alert').hide('fast');
 
 
-        var computerChoice = Math.random();
-        if (computerChoice < 0.34) {
-            computerChoice = "rock";
-        } else if (computerChoice <= 0.67) {
-            computerChoice = "paper";
-        } else {
-            computerChoice = "scissors";
+        var computerChoice = Math.floor(Math.random()*5);
+        switch (computerChoice) {
+            case 0:
+                computerChoice = "rock";
+                break;
+            case 1:
+                computerChoice = "paper";
+                break;
+            case 2:
+                computerChoice = "scissors";
+                break;
+            case 3:
+                computerChoice = "lizard";
+                break;
+            case 4:
+                computerChoice = "spock";
+                break;
+
         };
 
         var compSign = "";
@@ -74,9 +85,35 @@ $(document).ready(function() {
 
 
         var compare = function(choice1, choice2) {
+            switch (true) {
+                case choice1 === choice2:
+                    $('#result h2').html("It's a tie.").parent().addClass('alert-warning').removeClass('alert-danger').removeClass('alert-success');
+                    compSign = "ties with";
+                    break;
+                default:
+                    switch (choice1) {
+                        case "rock":
+                            (choice2 === "spock" || choice2 === "paper") ? loser(choice2) : winner(choice1);
+                            break;
+                        case "paper":
+                            (choice2 === "scissors" || choice2 === "lizard") ? loser(choice2) : winner(choice1);
+                            break;
+                        case "scissors":
+                            (choice2 === "spock" || choice2 === "rock") ? loser(choice2) : winner(choice1);
+                            break;
+                        case "lizard":
+                            (choice2 === "scissors" || choice2 === "rock") ? loser(choice2) : winner(choice1);
+                            break;
+                        case "spock":
+                            (choice2 === "lizard" || choice2 === "paper") ? loser(choice2) : winner(choice1);
+                            break;
+                        default:
+                            break;
+                    };
+            };
+/*
+
             if (choice1 === choice2) {
-                $('#result h2').html("It's a tie.").parent().addClass('alert-warning').removeClass('alert-danger').removeClass('alert-success');
-                compSign = "ties with";
             } else if (choice1 === "rock") {
                 if (choice2 === "scissors") {
                     winner(choice1);
@@ -96,7 +133,9 @@ $(document).ready(function() {
                     winner(choice1);
                 }
             }
+            */
         };
+
 
         compare(userChoice, computerChoice);
 
