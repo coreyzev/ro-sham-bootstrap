@@ -111,29 +111,6 @@ $(document).ready(function() {
                             break;
                     };
             };
-/*
-
-            if (choice1 === choice2) {
-            } else if (choice1 === "rock") {
-                if (choice2 === "scissors") {
-                    winner(choice1);
-                } else {
-                    loser(choice2);
-                }
-            } else if (choice1 === "paper") {
-                if (choice2 === "rock") {
-                    winner(choice1);
-                } else {
-                    loser(choice2);
-                }
-            } else if (choice1 === "scissors") {
-                if (choice2 === "rock") {
-                    loser(choice2);
-                } else {
-                    winner(choice1);
-                }
-            }
-            */
         };
 
 
