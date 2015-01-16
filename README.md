@@ -7,15 +7,15 @@ Try it: http://coreyzev.github.io/ro-sham-bootstrap/index.html
 
 ### Features:
 
-* Show's  history of moves for each match. 
+* Show's  history of moves for each match.
 * Keeps track of score for each match.
 * Button based choices.
+* Lizard & Spock
 
 ### Roadmap:
 
-* Lizard & Spock
-* change logic to call JSON for win decisions
 * keystroke shortcuts
+* change logic to call JSON for win decisions
 
 ### Dependencies:
 
